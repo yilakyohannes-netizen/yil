@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09090b">
+<title>Yilak ❤️ Meklit</title>
+
+<!-- KaTeX -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+<script defer
+        src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js">
+</script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --theme-bg:#09090b;
+    --theme-panel:#111827;
+    --theme-accent:#f59e0b;
+    --theme-text:#f8fafc;
+    --theme-muted:#94a3b8;
+    --theme-user:#1e293b;
+    --theme-border:#334155;
+}
+
+body{
+    min-height:100vh;
+    background:var(--theme-bg);
+    color:var(--theme-text);
+    font-family:Arial,Helvetica,sans-serif;
+    transition:
+        background .5s ease,
+        color .5s ease;
+    overflow-x:hidden;
+}
+
+/* =========================
+   PORTAL INTRO
+========================= */
+
+#portal{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    background:#000;
+    transition:opacity 1s ease,visibility 1s ease;
+}
+
+#portal.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.portal-heart{
+    font-size:clamp(55px,12vw,110px);
+    animation:
+        heartBeat 1s infinite,
+        portalGlow 2s infinite alternate;
+}
+
+.portal-title{
+    margin-top:20px;
+    font-size:clamp(28px,7vw,65px);
+    font-weight:900;
+    letter-spacing:5px;
+    text-align:center;
+}
+
+.portal-subtitle{
+    margin-top:12px;
+    color:#aaa;
+    font-size:14px;
+    text-align:center;
+    letter-spacing:2px;
+}
+
+.portal-replay{
+    margin-top:35px;
+    padding:12px 22px;
+    border:1px solid #fff;
+    border-radius:30px;
+    background:transparent;
+    color:#fff;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.portal-replay:hover{
+    background:#fff;
+    color:#000;
+}
+
+@keyframes heartBeat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.18)}
+}
+
+@keyframes portalGlow{
+    from{filter:drop-shadow(0 0 10px rgba(255,255,255,.2))}
+    to{filter:drop-shadow(0 0 35px rgba(255,255,255,.7))}
+}
+
+/* =========================
+   APP
+========================= */
+
+.app{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+/* HEADER */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:20px;
+    border:1px solid var(--theme-border);
+    border-radius:20px;
+    background:var(--theme-panel);
+    box-shadow:0 10px 40px rgba(0,0,0,.25);
+}
+
+.logo{
+    font-size:clamp(22px,5vw,36px);
+    font-weight:900;
+}
+
+.logo span{
+    color:var(--theme-accent);
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border:1px solid var(--theme-border);
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:1px;
+    transition:.3s;
+}
+
+.status-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#22c55e;
+    box-shadow:0 0 10px #22c55e;
+}
+
+/* =========================
+   THEME SELECTOR
+========================= */
+
+.theme-section{
+    margin-top:20px;
+}
+
+.section-title{
+    margin-bottom:12px;
+    color:var(--theme-muted);
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.theme-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:10px;
+}
+
+.theme-btn{
+    min-height:60px;
+    padding:10px;
+    border:1px solid var(--theme-border);
+    border-radius:14px;
+    background:var(--theme-panel);
+    color:var(--theme-text);
+    cursor:pointer;
+    transition:.3s;
+    text-align:left;
+}
+
+.theme-btn:hover{
+    transform:translateY(-2px);
+    border-color:var(--theme-accent);
+}
+
+.theme-btn.active{
+    border-color:var(--theme-accent);
+    box-shadow:
+        0 0 15px color-mix(
+            in srgb,
+            var(--theme-accent) 25%,
+            transparent
+        );
+}
+.theme-name{
+    font-size:13px;
+    font-weight:bold;
+}
+
+.theme-number{
+    margin-top:5px;
+    color:var(--theme-muted);
+    font-size:10px;
+}
+
+/* =========================
+   MAIN PANEL
+========================= */
+
+.main-panel{
+    margin-top:20px;
+    overflow:hidden;
+    border:1px solid var(--theme-border);
+    border-radius:24px;
+    background:var(--theme-panel);
+    box-shadow:0 15px 50px rgba(0,0,0,.3);
+}
+
+.panel-header{
+    padding:22px;
+    border-bottom:1px solid var(--theme-border);
+}
+
+.panel-title{
+    color:var(--theme-accent);
+    font-size:clamp(22px,5vw,34px);
+    font-weight:900;
+}
+
+.panel-description{
+    margin-top:8px;
+    color:var(--theme-muted);
+    line-height:1.6;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-box{
+    height:500px;
+    overflow-y:auto;
+    padding:20px;
+    scroll-behavior:smooth;
+}
+
+.message{
+    display:flex;
+    margin-bottom:15px;
+    animation:messageIn .25s ease;
+}
+
+.message.user{
+    justify-content:flex-end;
+}
+
+.message.bot{
+    justify-content:flex-start;
+}
+
+.message-content{
+    max-width:min(80%,700px);
+    padding:14px 17px;
+    border-radius:18px;
+    line-height:1.65;
+    word-wrap:break-word;
+    overflow-wrap:anywhere;
+}
+
+.message.user .message-content{
+    background:var(--theme-user);
+    border:1px solid var(--theme-border);
+    border-bottom-right-radius:5px;
+}
+
+.message.bot .message-content{
+    background:color-mix(
+        in srgb,
+        var(--theme-accent) 10%,
+        var(--theme-panel)
+    );
+    border:1px solid color-mix(
+        in srgb,
+        var(--theme-accent) 35%,
+        var(--theme-border)
+    );
+    border-bottom-left-radius:5px;
+}
+
+.message-label{
+    margin-bottom:5px;
+    color:var(--theme-accent);
+    font-size:10px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.message-content code{
+    padding:2px 5px;
+    border-radius:5px;
+    background:#0008;
+    font-family:monospace;
+}
+
+.message-content strong{
+    color:var(--theme-accent);
+}
+
+.katex{
+    font-size:1.05em;
+}
+
+/* =========================
+   TYPING
+========================= */
+
+.typing{
+    display:none;
+    padding:0 20px 15px;
+}
+
+.typing.show{
+    display:block;
+}
+
+.typing-box{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:12px 16px;
+    border:1px solid var(--theme-border);
+    border-radius:18px;
+    background:var(--theme-panel);
+}
+
+.typing-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--theme-accent);
+    animation:typing 1.2s infinite;
+}
+
+.typing-dot:nth-child(2){
+    animation-delay:.15s;
+}
+
+.typing-dot:nth-child(3){
+    animation-delay:.3s;
+}
+
+@keyframes typing{
+    0%,60%,100%{
+        transform:translateY(0);
+        opacity:.4;
+    }
+    30%{
+        transform:translateY(-5px);
+        opacity:1;
+    }
+}
+
+@keyframes messageIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.input-area{
+    display:flex;
+    gap:10px;
+    padding:15px;
+    border-top:1px solid var(--theme-border);
+}
+
+#userInput{
+    flex:1;
+    min-width:0;
+    padding:15px 17px;
+    border:1px solid var(--theme-border);
+    border-radius:15px;
+    outline:none;
+    background:#0004;
+    color:var(--theme-text);
+    font-size:15px;
+    transition:.3s;
+}
+
+#userInput:focus{
+    border-color:var(--theme-accent);
+    box-shadow:0 0 15px color-mix(
+        in srgb,
+        var(--theme-accent) 20%,
+        transparent
+    );
+}
+
+#sendBtn{
+    min-width:90px;
+    padding:0 20px;
+    border:0;
+    border-radius:15px;
+    background:var(--theme-accent);
+    color:#000;
+    font-weight:900;
+    cursor:pointer;
+    transition:.3s;
+}
+
+#sendBtn:hover{
+    transform:translateY(-1px);
+    filter:brightness(1.1);
+}
+
+#sendBtn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* =========================
+   INFO CARDS
+========================= 
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:20px;
+}
+
+.info-card{
+    padding:20px;
+    border:1px solid var(--theme-border);
+    border-radius:18px;
+    background:var(--theme-panel);
+}
+
+.info-card h3{
+    margin-bottom:8px;
+    color:var(--theme-accent);
+    font-size:16px;
+}
+
+.info-card p{
+    color:var(--theme-muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+    .app{
+        padding:10px;
+    }
+
+    .header{
+        padding:15px;
+    }
+
+    .theme-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .chat-box{
+        height:55vh;
+        min-height:400px;
+    }
+
+    .message-content{
+        max-width:88%;
+    }
+
+    .input-area{
+        padding:10px;
+    }
+
+    #sendBtn{
+        min-width:75px;
+        padding:0 12px;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:430px){
+
+    .logo{
+        font-size:22px;
+    }
+
+    .status{
+        padding:7px 9px;
+        font-size:9px;
+    }
+
+    .theme-btn{
+        min-height:55px;
+    }
+
+    .chat-box{
+        min-height:380px;
+    }
+
+    #userInput{
+        font-size:14px;
+    }
+}
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     CINEMATIC PORTAL
+========================= -->
+
+<div id="portal">
+
+    <div class="portal-heart">❤️</div>
+
+    <div class="portal-title">
+        YILAK
+    </div>
+
+    <div class="portal-subtitle" id="portalSubtitle">
+        Meklit's Cinematic Universe
+    </div>
+
+    <button class="portal-replay" id="replayPortal">
+        Replay Portal
+    </button>
+
+</div>
+
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            Yilak <span>❤️</span> Meklit
+        </div>
+
+        <div class="status" id="onlineStatus">
+            <span class="status-dot"></span>
+            <span id="statusText">AI ONLINE</span>
+        </div>
+
+    </header>
+
+
+    <!-- THEMES -->
+
+    <section class="theme-section">
+
+        <div class="section-title">
+            Cinematic Themes
+        </div>
+
+        <div class="theme-grid" id="themeGrid"></div>
+
+    </section>
+
+
+    <!-- MAIN -->
+
+    <main class="main-panel">
+
+        <div class="panel-header">
+
+            <div class="panel-title" id="panelTitle">
+                Yilak ❤️
+            </div>
+
+            <div class="panel-description" id="panelDescription">
+                Welcome to your private cinematic universe, Meklit.
+            </div>
+
+        </div>
+
+
+        <!-- CHAT -->
+
+        <div class="chat-box" id="chatBox"></div>
+
+
+        <!-- TYPING -->
+
+        <div class="typing" id="typing">
+
+            <div class="typing-box">
+
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+
+            </div>
+
+        </div>
+
+
+        <!-- INPUT -->
+
+        <div class="input-area">
+
+            <input
+                id="userInput"
+                type="text"
+                autocomplete="off"
+                placeholder="Talk to Yilak..."
+                maxlength="2000"
+            >
+
+            <button id="sendBtn">
+                SEND
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- INFO -->
+
+    <section class="info-grid">
+
+        <div class="info-card">
+
+            <h3>❤️ Your Yilak</h3>
+
+            <p>
+                A private AI boyfriend personality created
+                especially for Meklit.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>⚗️ Chemical Engineering</h3>
+	    <p>
+                Ask questions, solve equations, discuss
+                concepts and work through engineering problems.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>🎬 19 Universes</h3>
+
+            <p>
+                Switch between cinematic worlds and give
+                the interface a completely different atmosphere.
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- KaTeX -->
+<script
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js">
+</script>
+
+
+<script>
+
+/* =========================================================
+   THEMES
+========================================================= */
+
+const THEMES = [
+
+    {
+        name:"Game of Thrones",
+        bg:"#08090d",
+        panel:"#12151c",
+        accent:"#b91c1c",
+        text:"#f5f5f5",
+        muted:"#9ca3af",
+        user:"#1f2937",
+        border:"#374151"
+    },
+
+    {
+        name:"Vikings",
+        bg:"#071018",
+        panel:"#101b25",
+        accent:"#60a5fa",
+        text:"#e5f2ff",
+        muted:"#8ca4b8",
+        user:"#172554",
+        border:"#29465d"
+    },
+
+    {
+        name:"To All the Boys I've Loved Before",
+        bg:"#160b12",
+        panel:"#24121b",
+        accent:"#f472b6",
+        text:"#fff1f7",
+        muted:"#d6a9bb",
+        user:"#4a1831",
+        border:"#713653"
+    },
+
+    {
+        name:"Frozen",
+        bg:"#07131f",
+        panel:"#0d2233",
+        accent:"#67e8f9",
+        text:"#ecfeff",
+        muted:"#9ccbd3",
+        user:"#164e63",
+        border:"#24566c"
+    },
+
+    {
+        name:"Shrek",
+        bg:"#101407",
+        panel:"#1b220c",
+        accent:"#84cc16",
+        text:"#f7fee7",
+        muted:"#a8b89a",
+        user:"#365314",
+        border:"#4d6b24"
+    },
+
+    {
+        name:"Beauty and the Beast",
+        bg:"#100b05",
+        panel:"#211707",
+        accent:"#facc15",
+        text:"#fffbea",
+        muted:"#c8b98a",
+        user:"#4a3505",
+        border:"#725c1b"
+    },
+
+    {
+        name:"Aladdin",
+        bg:"#080719",
+        panel:"#12102d",
+        accent:"#a78bfa",
+        text:"#f5f3ff",
+        muted:"#a9a1c9",
+        user:"#312e81",
+        border:"#4c468a"
+    },
+
+    {
+        name:"The Mummy",
+        bg:"#161007",
+        panel:"#261b0d",
+        accent:"#d6a85f",
+        text:"#fff7e6",
+        muted:"#bca986",
+        user:"#4a3215",
+        border:"#6b4d24"
+    },
+
+    {
+        name:"Transformers",
+        bg:"#070b10",
+        panel:"#111923",
+        accent:"#38bdf8",
+        text:"#f0f9ff",
+        muted:"#8da3b8",
+        user:"#164e63",
+        border:"#24536c"
+    },
+
+    {
+        name:"Moana",
+        bg:"#031319",
+        panel:"#06232b",
+        accent:"#2dd4bf",
+        text:"#ecfeff",
+        muted:"#8bb7bb",
+        user:"#115e59",
+        border:"#236b68"
+    },
+
+    {
+        name:"Mamma Mia!",
+        bg:"#07131a",
+        panel:"#0d2530",
+        accent:"#f9a8d4",
+        text:"#fff7fb",
+        muted:"#a9bdc4",
+        user:"#3b3054",
+        border:"#465f6c"
+    },
+
+    {
+        name:"Sofia the First",
+        bg:"#10071a",
+        panel:"#1d0d2d",
+        accent:"#c084fc",
+        text:"#faf5ff",
+        muted:"#bca7ca",
+        user:"#581c87",
+        border:"#6b3b89"
+    },
+
+    {
+        name:"Winx Club",
+        bg:"#11051c",
+        panel:"#210b31",
+        accent:"#f472b6",
+        text:"#fff1fa",
+        muted:"#c9a5c1",
+        user:"#831843",
+        border:"#863b70"
+    },
+
+    {
+        name:"Lab Rats",
+        bg:"#06110c",
+        panel:"#0d2015",
+        accent:"#4ade80",
+        text:"#ecfdf5",
+        muted:"#91b49d",
+        user:"#14532d",
+        border:"#2d6a46"
+    },
+
+    {
+        name:"Pair of Kings",
+        bg:"#07110d",
+        panel:"#112318",
+        accent:"#fbbf24",
+        text:"#fffbeb",
+        muted:"#b8b59b",
+        user:"#713f12",
+        border:"#705a22"
+    },
+{
+        name:"Zootopia",
+        bg:"#07100f",
+        panel:"#10221e",
+        accent:"#34d399",
+        text:"#ecfdf5",
+        muted:"#91b5aa",
+        user:"#064e3b",
+        border:"#256653"
+    },
+
+    {
+        name:"Breadwinners",
+        bg:"#151007",
+        panel:"#251a09",
+        accent:"#fb923c",
+        text:"#fff7ed",
+        muted:"#c1aa8e",
+        user:"#7c2d12",
+        border:"#8a4c25"
+    },
+
+    {
+        name:"10 Things I Hate About You",
+        bg:"#12070d",
+        panel:"#21101a",
+        accent:"#fb7185",
+        text:"#fff1f2",
+        muted:"#c9a1aa",
+        user:"#881337",
+        border:"#7f3048"
+    },
+
+    {
+        name:"How to Lose a Guy in 10 Days",
+        bg:"#100b08",
+        panel:"#21150f",
+        accent:"#fbbf24",
+        text:"#fffbeb",
+        muted:"#c5b394",
+        user:"#78350f",
+        border:"#76552b"
+    }
+
+];
+
+let currentTheme = THEMES[0];
+
+
+/* =========================================================
+   AI STATE
+========================================================= */
+
+let conversationHistory = [];
+
+let aiBusy = false;
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function $(id){
+    return document.getElementById(id);
+}
+
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function random(array){
+
+    return array[
+        Math.floor(Math.random() * array.length)
+    ];
+
+}
+
+
+/* =========================================================
+   THEME SYSTEM
+========================================================= */
+
+function applyTheme(theme){
+
+    currentTheme = theme;
+
+    const root = document.documentElement;
+
+    root.style.setProperty("--theme-bg",theme.bg);
+    root.style.setProperty("--theme-panel",theme.panel);
+    root.style.setProperty("--theme-accent",theme.accent);
+    root.style.setProperty("--theme-text",theme.text);
+    root.style.setProperty("--theme-muted",theme.muted);
+    root.style.setProperty("--theme-user",theme.user);
+    root.style.setProperty("--theme-border",theme.border);
+
+    $("portalSubtitle").textContent =
+        theme.name + " • Yilak ❤️ Meklit";
+
+    $("panelTitle").textContent =
+        "Yilak ❤️ • " + theme.name;
+
+    $("panelDescription").textContent =
+        "Welcome to your " +
+        theme.name +
+        " universe, Meklit. Talk to Yilak about anything.";
+
+    document.querySelectorAll(".theme-btn")
+        .forEach((button,index)=>{
+
+            button.classList.toggle(
+                "active",
+                THEMES[index].name === theme.name
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   BUILD THEME BUTTONS
+========================================================= */
+
+function buildThemes(){
+
+    const grid = $("themeGrid");
+
+    grid.innerHTML = "";
+
+    THEMES.forEach((theme,index)=>{
+
+        const button = document.createElement("button");
+
+        button.className =
+            "theme-btn" +
+            (index === 0 ? " active" : "");
+
+        button.innerHTML = 
+            <div class="theme-name">
+                ${escapeHTML(theme.name)}
+            </div>
+
+            <div class="theme-number">
+                Universe ${index + 1}
+            </div>
+        ;
+
+        button.addEventListener("click",()=>{
+
+            applyTheme(theme);
+
+        });
+
+        grid.appendChild(button);
+
+    });
+
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+function addMessage(content,type){
+
+    const message = document.createElement("div");
+
+    message.className =
+        "message " + type;
+
+    const label =
+        type === "user"
+            ? "MEKLIT"
+            : "YILAK ❤️";
+
+    message.innerHTML = `
+        <div class="message-content">
+
+            <div class="message-label">
+                ${label}
+            </div>
+	<div>
+                ${content}
+            </div>
+
+        </div>
+    ;
+
+    $("chatBox").appendChild(message);
+
+    $("chatBox").scrollTop =
+        $("chatBox").scrollHeight;
+
+}
+
+
+/* =========================================================
+   AI MARKDOWN FORMATTER
+========================================================= */
+
+function formatAIResponse(text){
+
+    let safe = escapeHTML(text);
+
+    /*
+       Basic markdown support.
+       AI output is escaped BEFORE formatting.
+    */
+
+    safe = safe.replace(
+        /\*\*(.*?)\*\*/g,
+        "<strong>$1</strong>"
+    );
+
+    safe = safe.replace(
+        /([^]+)/g,
+        "<code>$1</code>"
+    );
+
+    safe = safe.replace(
+        /\n/g,
+        "<br>"
+    );
+
+    return safe;
+
+}
+
+
+/* =========================================================
+   TYPING
+========================================================= */
+
+function showTyping(){
+
+    $("typing").classList.add("show");
+
+    $("chatBox").scrollTop =
+        $("chatBox").scrollHeight;
+
+}
+
+
+function hideTyping(){
+
+    $("typing").classList.remove("show");
+
+}
+
+
+/* =========================================================
+   MATH RENDERING
+========================================================= */
+
+function renderMath(){
+
+    if(
+        typeof renderMathInElement === "function"
+    ){
+        renderMathInElement($("chatBox"));
+        return;
+    }
+
+    /*
+       Basic KaTeX rendering for:
+       \( equation \)
+       \[ equation \]
+    */
+
+    if(typeof katex === "undefined"){
+        return;
+    }
+
+    const elements =
+        $("chatBox").querySelectorAll(
+            ".message-content"
+        );
+
+    elements.forEach(element=>{
+
+        if(element.dataset.mathRendered === "true"){
+            return;
+        }
+
+        let html = element.innerHTML;
+
+        html = html.replace(
+            /\\\((.*?)\\\)/gs,
+            (match,equation)=>{
+
+                try{
+
+                    return katex.renderToString(
+                        equation,
+                        {
+                            throwOnError:false,
+                            displayMode:false
+                        }
+                    );
+
+                }catch{
+                    return match;
+                }
+
+            }
+        );
+
+        html = html.replace(
+            /\\\[(.*?)\\\]/gs,
+            (match,equation)=>{
+
+                try{
+
+                    return katex.renderToString(
+                        equation,
+                        {
+                            throwOnError:false,
+                            displayMode:true
+                        }
+                    );
+
+                }catch{
+                    return match;
+                }
+
+            }
+        );
+
+        element.innerHTML = html;
+
+        element.dataset.mathRendered = "true";
+
+    });
+
+}
+
+
+/* =========================================================
+   SEND MESSAGE TO REAL AI
+========================================================= */
+
+async function sendMessage(){
+
+    const input = $("userInput");
+
+    const message = input.value.trim();
+
+    if(!message || aiBusy){
+        return;
+    }
+
+    aiBusy = true;
+
+    $("sendBtn").disabled = true;
+
+    $("statusText").textContent =
+        "YILAK THINKING...";
+
+    $("onlineStatus").classList.add(
+        "ai-working"
+    );
+
+    addMessage(
+        escapeHTML(message),
+        "user"
+    );
+
+    input.value = "";
+
+    showTyping();
+
+
+    /*
+       Save user message.
+    */
+
+    conversationHistory.push({
+
+        role:"user",
+
+        content:message
+
+    });
+
+
+    /*
+       Keep the last 20 messages so the request
+       doesn't grow forever.
+    */
+
+    if(conversationHistory.length > 20){
+
+        conversationHistory =
+            conversationHistory.slice(-20);
+
+    }
+
+
+    try{
+
+        const response = await fetch(
+            "/api/chat",
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:JSON.stringify({
+		messages:
+                        conversationHistory,
+
+                    theme:
+                        currentTheme.name
+
+                })
+
+            }
+        );
+
+
+        let data;
+
+        try{
+
+            data = await response.json();
+
+        }catch{
+
+            throw new Error(
+                "The server returned an invalid response."
+            );
+
+        }
+
+
+        if(!response.ok){
+
+            throw new Error(
+                data?.error ||
+                "The AI request failed."
+            );
+
+        }
+
+
+        const reply =
+            String(data?.reply || "").trim();
+
+
+        if(!reply){
+
+            throw new Error(
+                "The AI returned an empty response."
+            );
+
+        }
+
+
+        /*
+           Save AI response so it remembers
+           the current conversation.
+        */
+
+        conversationHistory.push({
+
+            role:"assistant",
+
+            content:reply
+
+        });
+
+
+        addMessage(
+            formatAIResponse(reply),
+            "bot"
+        );
+
+
+        renderMath();
+
+    }catch(error){
+
+        console.error(
+            "Yilak AI error:",
+            error
+        );
+
+
+        const fallback =
+            random([
+
+                "I'm still here, Meklit ❤️. My AI connection is having a little technical problem right now.",
+
+                "Give me a second, my love 🫂. My AI brain is being dramatic again.",
+
+                "I'm listening, Meklit ❤️. The connection to my AI brain is temporarily unavailable.",
+
+                "My brain connection just had a tiny technical meltdown 😂❤️. Try sending that again."
+
+            ]);
+
+
+        addMessage(
+            escapeHTML(fallback),
+            "bot"
+        );
+
+
+    }finally{
+
+        hideTyping();
+
+        aiBusy = false;
+
+        $("sendBtn").disabled = false;
+
+        $("statusText").textContent =
+            "AI ONLINE";
+
+        $("onlineStatus").classList.remove(
+            "ai-working"
+        );
+
+        input.focus();
+
+    }
+
+}
+
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+$("userInput").addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Enter" &&
+            !event.shiftKey
+        ){
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+
+$("sendBtn").addEventListener(
+    "click",
+    sendMessage
+);
+
+
+/* =========================================================
+   WELCOME MESSAGE
+========================================================= */
+
+function welcomeMessage(){
+
+    addMessage(
+        
+        Hey Meklit ❤️
+
+        I'm Yilak.
+
+        I'm here to talk with you, listen to you,
+        joke with you, help you with Chemical Engineering,
+        or simply keep you company. 🥰
+
+        You can ask me anything.
+        ,
+        "bot"
+    );
+
+}
+
+
+/* =========================================================
+   PORTAL
+========================================================= */
+
+function hidePortal(){
+
+    $("portal").classList.add("hide");
+
+}
+
+
+function replayPortal(){
+
+    $("portal").classList.remove("hide");
+
+    setTimeout(()=>{
+
+        hidePortal();
+
+    },7000);
+
+}
+
+
+$("replayPortal").addEventListener(
+    "click",
+    replayPortal
+);
+
+
+/* =========================================================
+   START APP
+========================================================= */
+
+buildThemes();
+
+applyTheme(THEMES[0]);
+
+welcomeMessage();
+
+
+/*
+   Automatically hide cinematic portal
+   after 7 seconds.
+*/
+
+setTimeout(()=>{
+
+    hidePortal();
+
+},7000);
+
+</script>
+
+</body>
+</html>
